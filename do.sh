@@ -1,20 +1,26 @@
 # curl -s https://chrishaz.fun/fedora.sh | bash
 
-echo "Updating..."
+echo "Updating"
 sudo dnf update -y
 
-echo "Removing..."
-sudo dnf remove gnome-terminal gnome-terminal-nautilus rhythmbox nautilus -y
+echo "Removing"
+sudo dnf remove gnome-terminal gnome-terminal-nautilus gnome-tour rhythmbox nautilus -y
 
-echo "Installing..."
-sudo dnf install wine steam gamemode konsole5 snapd -y
+echo "Seperate Sublime thing for some reason"
+sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg -y
+sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo -y
 
-# snaps instead of official appimages so they can be updated seamlessly
+echo "Installing"
+sudo dnf install wine steam gamemode konsole5 sublime-text -y
+
+echo "Snap/RPMFusion"
+sudo dnf install appstream-data snapd -y
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
 echo "Creating symbolic link for 'classic snap' support just in case"
 sudo ln -s /var/lib/snapd/snap /snap
 
-echo "Installing stuff I couldn't before :P"
+echo "Installing snaps"
 sudo snap install rpcs3-emu spotify
 
 echo "Restoring preferred dconf values"
