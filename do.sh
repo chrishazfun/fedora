@@ -1,19 +1,26 @@
 # curl -s https://chrishaz.fun/fedora.sh | bash
 
-echo "Updating - Removing - Installing"
-sleep 2
-
+echo "Updating..."
 sudo dnf update -y
-sudo dnf remove gnome-terminal gnome-terminal-nautilus -y
+
+echo "Removing..."
+sudo dnf remove gnome-terminal gnome-terminal-nautilus rhythmbox nautilus -y
+
+echo "Installing..."
 sudo dnf install wine steam gamemode konsole5 snapd -y
 
-echo "Create symbolic link for 'classic snap' support just in case"
+# snaps instead of official appimages so they can be updated seamlessly
+
+echo "Creating symbolic link for 'classic snap' support just in case"
 sudo ln -s /var/lib/snapd/snap /snap
 
-echo "Installing stuff i couldn't before :P"
-sudo snap install rpcs3-emu
+echo "Installing stuff I couldn't before :P"
+sudo snap install rpcs3-emu spotify
 
 echo "Restoring preferred dconf values"
-dconf load / < dconf.ini
+sudo dconf load / < dconf.ini
+
+echo "Last one since this requires rebooting to work - Installing latest Nvidia drivers"
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs -y
 
 echo "Thats about it for now :)"
