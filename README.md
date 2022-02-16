@@ -1,1 +1,1 @@
-## fedora: script to apply things :)
+# fedora: script to apply things :)
