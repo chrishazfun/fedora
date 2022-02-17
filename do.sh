@@ -1,32 +1,43 @@
 # curl -s https://chrishaz.fun/fedora.sh | bash
 
+# general update
 echo "Updating"
 sudo dnf update -y
 
-echo "Removing"
-sudo dnf remove gnome-terminal gnome-terminal-nautilus gnome-tour rhythmbox nautilus -y
+# removing some default fedora ws apps/packages
+sudo dnf remove gnome-terminal -y
+sudo dnf remove gnome-terminal-nautilus -y
+sudo dnf remove nautilus -y
+sudo dnf remove gnome-tour -y
+sudo dnf remove rhythmbox -y
 
-echo "Seperate Sublime thing for some reason"
+# flathub/installing stuff that isn't on dnf
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.spotify.Client
+flatpak install flathub net.pcsx2.PCSX2
+flatpak install flathub net.rpcs3.RPCS3
+
+# import rpmfusion free/non-free
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+
+# sublime stuff for dnf installation
 sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg -y
 sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo -y
 
-echo "Snap/RPMFusion"
-sudo dnf install appstream-data snapd -y
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+# dnf install
+sudo dnf install wine -y
+sudo dnf install steam -y
+sudo dnf install konsole5 -y
+sudo dnf install pcsx2 -y
+sudo dnf install sublime-text -y
 
-echo "Creating symbolic link for 'classic snap' support just in case"
-sudo ln -s /var/lib/snapd/snap /snap
+# dnf install - gnome shell extensions
+sudo dnf install gnome-shell-extensions -y
+sudo dnf install chrome-gnome-shell -y
 
-echo "Installing snaps"
-sudo snap install rpcs3-emu spotify
-
-echo "Installing"
-sudo dnf install wine steam gamemode konsole5 sublime-text pcsx2 -y
+# nvidia drivers
+sudo dnf install akmod-nvidia -y
+sudo dnf install xorg-x11-drv-nvidia-cuda-libs -y
 
 echo "Restoring preferred dconf values"
 sudo dconf load / < dconf.ini
-
-echo "Last one since this requires rebooting to work - Installing latest Nvidia drivers"
-sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs -y
-
-echo "Thats about it for now :)"
