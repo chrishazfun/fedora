@@ -5,7 +5,6 @@ echo "Updating"
 sudo dnf update -y
 
 # removing some default fedora ws apps/packages
-sudo dnf remove gnome-terminal -y
 sudo dnf remove gnome-terminal-nautilus -y
 sudo dnf remove nautilus -y
 sudo dnf remove gnome-tour -y
@@ -20,15 +19,18 @@ flatpak install flathub net.rpcs3.RPCS3
 # import rpmfusion free/non-free
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
+# install media codecs
+sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
+sudo dnf install lame\* --exclude=lame-devel -y
+sudo dnf group upgrade --with-optional Multimedia
+
 # sublime stuff for dnf installation
-sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg -y
-sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo -y
+sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 # dnf install
 sudo dnf install wine -y
 sudo dnf install steam -y
-sudo dnf install konsole5 -y
-sudo dnf install pcsx2 -y
 sudo dnf install sublime-text -y
 
 # dnf install - gnome shell extensions
