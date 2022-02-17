@@ -4,6 +4,11 @@
 echo "Updating"
 sudo dnf update -y
 
+git clone https://github.com/Nefelim4ag/Ananicy.git /tmp/ananicy
+cd /tmp/ananicy
+sudo make install
+cd
+
 # removing some default fedora ws apps/packages
 sudo dnf remove gnome-terminal-nautilus -y
 sudo dnf remove nautilus -y
