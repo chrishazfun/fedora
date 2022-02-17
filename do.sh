@@ -1,12 +1,17 @@
 # curl -s https://chrishaz.fun/fedora.sh | bash
 
 # general update
-echo "Updating"
 sudo dnf update -y
 
+# enable fstrim
+systemctl enable --now fstrim.timer
+
+# ananicy for better performance
 git clone https://github.com/Nefelim4ag/Ananicy.git /tmp/ananicy
 cd /tmp/ananicy
 sudo make install
+sudo systemctl enable ananicy -y
+sudo systemctl start ananicy -y
 cd
 
 # removing some default fedora ws apps/packages
