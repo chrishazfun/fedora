@@ -10,8 +10,6 @@ sudo make install
 cd
 
 # removing some default fedora ws apps/packages
-sudo dnf remove gnome-terminal-nautilus -y
-sudo dnf remove nautilus -y
 sudo dnf remove gnome-tour -y
 sudo dnf remove rhythmbox -y
 
