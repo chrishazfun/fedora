@@ -39,6 +39,7 @@ sudo dnf install sublime-text -y
 # dnf install - gnome shell extensions
 sudo dnf install gnome-shell-extensions -y
 sudo dnf install chrome-gnome-shell -y
+sudo dnf install gnome-shell-extension-no-overview
 
 # nvidia drivers
 sudo dnf install akmod-nvidia -y
