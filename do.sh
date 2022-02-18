@@ -28,8 +28,7 @@ sudo systemctl start ananicy -y
 cd
 
 # removing some default fedora ws apps/packages
-sudo dnf remove gnome-tour -y
-sudo dnf remove rhythmbox -y
+sudo dnf remove gnome-tour rhythmbox -y
 
 # flathub/installing stuff that isn't on dnf
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -50,18 +49,13 @@ sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 # dnf install
-sudo dnf install wine -y
-sudo dnf install steam -y
-sudo dnf install sublime-text -y
+sudo dnf install wine steam sublime-text -y
 
 # dnf install - gnome shell extensions
-sudo dnf install gnome-shell-extensions -y
-sudo dnf install chrome-gnome-shell -y
-sudo dnf install gnome-shell-extension-no-overview
+sudo dnf install gnome-shell-extensions chrome-gnome-shell gnome-shell-extension-no-overview -y
 
 # nvidia drivers
-sudo dnf install akmod-nvidia -y
-sudo dnf install xorg-x11-drv-nvidia-cuda-libs -y
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs -y
 
 echo "Restoring preferred dconf values"
 sudo dconf load / < dconf.ini
