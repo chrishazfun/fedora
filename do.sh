@@ -1,5 +1,18 @@
 # curl -s https://chrishaz.fun/fedora.sh | bash
 
+sudo cat <<EOF >>/etc/dnf/dnf.conf
+[main]
+gpgcheck=1
+installonly_limit=3
+clean_requirements_on_remove=True
+best=False
+skip_if_unavailable=True
+fastestmirror=True
+max_parallel_downloads=10
+defaultyes=True
+keepcache=True
+EOF
+
 # general update
 sudo dnf update -y
 
