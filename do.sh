@@ -51,7 +51,14 @@ sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 # dnf install / gnome shell extensions
-sudo dnf install wine steam sublime-text gnome-shell-extensions chrome-gnome-shell gnome-shell-extension-no-overview akmod-nvidia xorg-x11-drv-nvidia-cuda-libs -y
+sudo dnf install wine steam sublime-text -y
+
+sudo dnf install gnome-shell-extensions chrome-gnome-shell -y
+wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+chmod +x gnome-shell-extension-installer
+sudo mv gnome-shell-extension-installer /usr/bin/
+
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs -y
 
 echo "Restoring preferred dconf values"
 sudo dconf load / < dconf.ini
